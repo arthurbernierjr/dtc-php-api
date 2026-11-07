@@ -11,7 +11,7 @@ class TodoController extends Controller
 {
     public function index(): JsonResponse
     {
-        return response()->json(Todo::all());
+        return response()->json(Todo::orderBy('id')->get());
     }
 
     public function show(Todo $todo): JsonResponse
@@ -25,23 +25,28 @@ class TodoController extends Controller
             'subject' => ['required', 'string', 'max:255'],
             'details' => ['required', 'string', 'max:255'],
         ]);
-        $todo = Todo::create($validated);
+
+        $todo = Todo::create($validated)->refresh();
+
         return response()->json($todo, 201);
     }
 
     public function update(Request $request, Todo $todo): JsonResponse
     {
         $validated = $request->validate([
-            'subject' => ['sometimes', 'required', 'string', 'max:255'],
-            'details' => ['sometimes', 'required', 'string', 'max:255'],
+            'subject' => ['required', 'string', 'max:255'],
+            'details' => ['required', 'string', 'max:255'],
         ]);
+
         $todo->update($validated);
+
         return response()->json($todo);
     }
 
     public function destroy(Todo $todo): Response
     {
         $todo->delete();
+
         return response()->noContent();
     }
 }

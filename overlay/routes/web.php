@@ -3,13 +3,13 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $html = <<<'HTML'
+    return <<<'HTML'
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Todos API</title>
+  <title>Todos</title>
   <style>
     body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #08080A; color: #EAE6E1; font: 17px/1.5 system-ui, sans-serif; }
     main { width: min(36rem, calc(100% - 32px)); }
@@ -21,13 +21,12 @@ Route::get('/', function () {
 </head>
 <body>
   <main>
-    <p>PHP · Laravel 13</p>
+    <p>PHP · Laravel</p>
     <h1>Todos</h1>
-    <p>JSON lives at <code>/api/todos</code>.</p>
+    <p>JSON lives at <code>/todos</code></p>
     <p><a href="https://github.com/arthurbernierjr/dtc-php-api">GitHub</a></p>
   </main>
 </body>
 </html>
 HTML;
-    return response($html);
 });
